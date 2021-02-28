@@ -67,6 +67,44 @@ export declare class CameraPlus extends ContentView {
    */
   debug: boolean;
 
+
+  /**
+   * @default 4:3
+   * *ANDROID ONLY*  A string to represent the camera preview aspect ratio e.g 4:3, 1:1 ,16:9 to check if the device supports the ratio use {@link getGetSupportedRatios}
+   */
+  ratio: string;
+
+  /**
+   *  *ANDROID ONLY*  Camera zoom uses a float 0 - 1.
+   *  0 being no zoom
+   *  1 being max zoom
+   */
+  zoom: number;
+
+  /**
+   *  *ANDROID ONLY* Camera white balance
+   */
+  whiteBalance: WhiteBalance | string;
+
+
+  /**
+   * A string representing the size of picture {@link takePicture} will output. Available sizes can be fetched using {@link getAvailablePictureSizes}
+   */
+  pictureSize: string;
+
+
+/**
+ * @param ratio string
+ * @returns returns an array of supported picture sizes supported by the current camera
+ */
+  getAvailablePictureSizes(ratio: string): string[];
+
+  /**
+   * *ANDROID ONLY*
+   * @returns retuns an array of strings representing the preview sizes supported by the current device.
+   */
+  getGetSupportedRatios(): string[];
+
   /**
    * If true the default take picture event will present a confirmation dialog. Default is true.
    */
@@ -250,6 +288,7 @@ export interface ICameraOptions {
   autoSquareCrop?: boolean;
   confirmRetakeText?: string;
   confirmSaveText?: string;
+  useCameraOptions?: boolean;
 }
 
 export declare enum CameraVideoQuality {
@@ -289,4 +328,15 @@ export interface ICameraPlusEvents {
   videoRecordingStartedEvent: any;
   videoRecordingFinishedEvent: any;
   videoRecordingReadyEvent: any;
+}
+
+export enum WhiteBalance {
+  Auto = 'auto',
+  Sunny = 'sunny',
+  Cloudy = 'cloudy',
+  Shadow = 'shadow',
+  Twilight = 'twilight',
+  Fluorescent = 'fluorescent',
+  Incandescent = 'incandescent',
+  WarmFluorescent = 'warm-fluorescent',
 }

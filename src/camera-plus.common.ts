@@ -85,6 +85,51 @@ export abstract class CameraPlusBase extends ContentView implements CameraPlusDe
   public static confirmScreenDismissedEvent = 'confirmScreenDismissedEvent';
 
   /**
+   * @default 4:3
+  * *ANDROID ONLY*  A string to represent the camera preview aspect ratio e.g 4:3, 1:1 ,16:9 to check if the device supports the ratio use {@link getGetSupportedRatios}
+  */
+  @GetSetProperty()
+  public ratio: string;
+
+  /**
+   *  *ANDROID ONLY*  Camera zoom uses a float 0 - 1.
+   *  0 being no zoom
+   *  1 being max zoom
+   */
+  @GetSetProperty()
+  public zoom: number = 0;
+
+
+  /**
+   *  *ANDROID ONLY* Camera white balance
+   */
+  @GetSetProperty()
+  public whiteBalance: WhiteBalance | string = WhiteBalance.Auto;
+
+
+  /**
+   *  *ANDROID ONLY* A string representing the size of picture {@link takePicture} will output. Available sizes can be fetched using {@link getAvailablePictureSizes}
+   */
+  @GetSetProperty()
+  public pictureSize: string = '0x0';
+
+
+  /**
+   * @param ratio string
+   * @returns returns an array of supported picture sizes supported by the current camera
+   */
+  getAvailablePictureSizes(ratio: string): string[] {
+    return [];
+  }
+
+  /**
+  * @returns retuns an array of strings representing the preview sizes supported by the current device.
+  */
+  getGetSupportedRatios(): string[] {
+    return [];
+  }
+
+  /**
    * If true the default take picture event will present a confirmation dialog. Default is true.
    */
   @GetSetProperty()
@@ -193,12 +238,12 @@ export abstract class CameraPlusBase extends ContentView implements CameraPlusDe
   /**
    * Toggles the device camera (front/back).
    */
-  toggleCamera(): void {}
+  toggleCamera(): void { }
 
   /**
    * Toggles the active camera flash mode.
    */
-  toggleFlash(): void {}
+  toggleFlash(): void { }
 
   /**
    * Gets the flash mode
@@ -248,7 +293,7 @@ export abstract class CameraPlusBase extends ContentView implements CameraPlusDe
    * * ANDROID ONLY * - will prompt the user for runtime permission to use the device Camera.
    */
   requestCameraPermissions(explanationText?: string): Promise<boolean> {
-    return new Promise((resolve, reject) => resolve());
+    return new Promise((resolve, reject) => resolve(false));
   }
 
   /**
@@ -276,7 +321,7 @@ export abstract class CameraPlusBase extends ContentView implements CameraPlusDe
    * * ANDROID ONLY * - will prompt the user for runtime permission to record audio for video recording.
    */
   requestAudioPermissions(explanationText?: string): Promise<boolean> {
-    return new Promise((resolve, reject) => resolve());
+    return new Promise((resolve, reject) => resolve(false));
   }
 
   /**
@@ -336,6 +381,7 @@ export interface ICameraOptions {
   autoSquareCrop?: boolean;
   confirmRetakeText?: string;
   confirmSaveText?: string;
+  useCameraOptions?: boolean;
 }
 
 export interface IChooseOptions {
@@ -379,13 +425,24 @@ export interface IVideoOptions {
   androidMaxAudioBitRate?: number;
 }
 
+export enum WhiteBalance {
+  Auto = 'auto',
+  Sunny = 'sunny',
+  Cloudy = 'cloudy',
+  Shadow = 'shadow',
+  Twilight = 'twilight',
+  Fluorescent = 'fluorescent',
+  Incandescent = 'incandescent',
+  WarmFluorescent = 'warm-fluorescent',
+}
+
 export function GetSetProperty() {
   return (target, propertyKey: string) => {
     Object.defineProperty(target, propertyKey, {
-      get: function() {
+      get: function () {
         return this['_' + propertyKey];
       },
-      set: function(value) {
+      set: function (value) {
         if (this['_' + propertyKey] === value) {
           return;
         }

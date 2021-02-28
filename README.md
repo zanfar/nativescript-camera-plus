@@ -46,11 +46,24 @@
 tns plugin add @nstudio/nativescript-camera-plus
 ```
 
+**Note :- Android**
+ Please add the following to your app.gradle
+ 
+ ```gradle
+android {
+...
+  compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+```
+
 ## Sample
 
 _Yes the camera is rotated because it's a webcam to an emulator and it's just the way life works_
 
-![Camera Plus](images/camplus1.gif)
+![Camera Plus](src/images/camplus1.gif)
 
 ## Demo
 
@@ -83,19 +96,19 @@ npm run demo.ng.android
 
 ## Properties
 
-| Name                  | Type    | Description                                                                                                                            |
-| --------------------- | ------- | -------------------------------------------------------------------------------------------------------------------------------------- |
-| **debug**             | boolean | If true logs will be output in the console to help debug the Camera Plus events.                                                       |
-| **confirmPhotos**     | boolean | If true the default take picture event will present a confirmation dialog before saving. Default is true.                              |
-| **confirmRetakeText** | string  | When confirming capture this text will be presented to the user to retake the photo. Default is 'Retake'                               |
-| **confirmSaveText**   | string  | When confirming capture this text will be presented to the user to save the photo. Default is 'Save'                                   |
-| **saveToGallery**     | boolean | If true the default take picture event will save to device gallery. Default is true.                                                   |
-| **galleryPickerMode** | string  | The gallery/library selection mode. 'single' allows one image to be selected. 'multiple' allows multiple images. Default is 'multiple' |
-| **showFlashIcon**     | boolean | If true the default flash toggle icon/button will show on the Camera Plus layout. Default is true.                                     |
-| **showToggleIcon**    | boolean | If true the default camera toggle (front/back) icon button will show on the Camera Plus layout. Default is true.                       |
-| **showCaptureIcon**   | boolean | If true the default capture (take picture) icon/button will show on the Camera Plus layout. Default is true.                           |
-| **showGalleryIcon**   | boolean | If true the choose from gallery/library icon/button will show on the Camera Plus layout. Default is true.                              |
-| **enableVideo**       | boolean | If true the CameraPlus instance can record video and videos are shown in the gallery.                                                  |
+| Name                  | Type    | Default    | Description                                                                                                                  |
+| --------------------- | ------- | -----------|----------------------------------------------------------------------------------------------------------------------------- |
+| **debug**             | boolean | *false*      | If true logs will be output in the console to help debug the Camera Plus events.                                           |
+| **confirmPhotos**     | boolean | *true*       | If true the default take picture event will present a confirmation dialog before saving.                                   |
+| **confirmRetakeText** | string  | *'Retake'*   | When confirming capture this text will be presented to the user to retake the photo.                                       |
+| **confirmSaveText**   | string  | *'Save'*     | When confirming capture this text will be presented to the user to save the photo.                                         |
+| **saveToGallery**     | boolean | *true*       | If true the default take picture event will save to device gallery.                                                        |
+| **galleryPickerMode** | string  | *'multiple'* |The gallery/library selection mode. 'single' allows one image to be selected. 'multiple' allows multiple images.            |
+| **showFlashIcon**     | boolean | *true*       | If true the default flash toggle icon/button will show on the Camera Plus layout.                                          |
+| **showToggleIcon**    | boolean | *true*       | If true the default camera toggle (front/back) icon button will show on the Camera Plus layout.                            |
+| **showCaptureIcon**   | boolean | *true*       | If true the default capture (take picture) icon/button will show on the Camera Plus layout.                                |
+| **showGalleryIcon**   | boolean | *true*       | If true the choose from gallery/library icon/button will show on the Camera Plus layout.                                   |
+| **enableVideo**       | boolean | *fale*       | If true the CameraPlus instance can record video and videos are shown in the gallery.                                      |
 
 ## Static Properties
 
